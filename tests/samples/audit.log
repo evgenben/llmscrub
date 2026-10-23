@@ -1,0 +1,3 @@
+type=PROCTITLE msg=audit(1729588441.123:4401): proctitle=2F7573722F62696E2F7073716C002D6800646230312E61636D652E6C616E002D55006976616E6F76
+type=USER_LOGIN msg=audit(1729588441.120:4400): pid=2211 uid=0 auid=1001 ses=12 msg='op=login acct="ivanov" exe="/usr/sbin/sshd" hostname=? addr=10.20.17.88 terminal=sshd res=success'
+type=SYSCALL msg=audit(1729588441.121:4402): arch=c000003e syscall=59 success=yes exit=0 a0=55d3 ppid=2210 pid=2215 auid=1001 uid=1001 gid=1001 euid=1001 tty=pts0 ses=12 comm="psql" exe="/usr/bin/psql" key="exec"

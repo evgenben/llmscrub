@@ -1,0 +1,13 @@
+# /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+ivanov:x:1001:1001:Ivan Ivanov,,,:/home/ivanov:/bin/bash
+petrova:x:1002:1002:Maria Petrova,,,:/home/petrova:/bin/bash
+svc-backup:x:998:998::/var/lib/backup:/usr/sbin/nologin
+# /etc/shadow
+ivanov:$y$j9T$Kd8sJ2lQ0aT.Ld1oVx3v//$hR3uYyq0cK7t1Yw5zPQa8b0XqA1nM2s3dF4gH5jK6L7:19650:0:99999:7:::
+# /etc/group
+sudo:x:27:ivanov,petrova
+acme-admins:x:1500:ivanov,petrova
+# /etc/sudoers.d/admins
+ivanov ALL=(ALL:ALL) ALL
+%acme-admins ALL=(ALL) NOPASSWD: /usr/bin/systemctl

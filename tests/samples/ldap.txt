@@ -1,0 +1,11 @@
+$ ldapsearch -H ldaps://ipa01.acme.lan -b "cn=users,cn=accounts,dc=acme,dc=lan" "(uid=petrova)"
+dn: uid=petrova,cn=users,cn=accounts,dc=acme,dc=lan
+cn: Maria Petrova
+uid: petrova
+mail: maria.petrova@acme.lan
+krbPrincipalName: petrova@ACME.LAN
+memberOf: cn=acme-admins,cn=groups,cn=accounts,dc=acme,dc=lan
+userPassword: {SSHA}aGVsbG8gd29ybGQgZmFrZQ==
+-----BEGIN CERTIFICATE-----
+MIIBszCCAVmgAwIBAgIUFakeFakeFakeFakeFakeFakeFakeFakeMAoGCCqGSM49BAMC
+-----END CERTIFICATE-----

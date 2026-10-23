@@ -1,0 +1,11 @@
+[ivanov@db01 ~]$ journalctl -u postgresql --since today
+2026-10-22T09:40:01+03:00 db01 postgres[3001]: FATAL:  password authentication failed for user "app_pay"
+2026-10-22T09:40:01+03:00 db01 postgres[3001]: DETAIL:  Connection matched pg_hba.conf line 98: "host payments app_pay 10.20.30.21/32 scram-sha-256"
+2026-10-22T09:41:12+03:00 db01 systemd[1]: Started postgresql@16-main.service - PostgreSQL Cluster 16-main.
+ivanov@db01:~$ cat /etc/app/db.env
+DB_HOST=db01.acme.lan
+DB_USER=app_pay
+DB_PASSWORD=Sup3r$ecret!
+PGPASSWORD='Sup3r$ecret!'
+DATABASE_URL=postgresql://app_pay:Sup3r$ecret!@db01.acme.lan:5432/payments
+API_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHAifQ.c2lnbmF0dXJlMTIz

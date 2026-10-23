@@ -1,0 +1,35 @@
+root@db01:~# ip -4 addr show eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 10.20.30.15/24 brd 10.20.30.255 scope global eth0
+root@db01:~# ss -tnp | head -3
+ESTAB 0 0 10.20.30.15:22 10.20.17.88:51234 users:(("sshd",pid=2211,fd=4))
+root@db01:~# id ivanov
+uid=1001(ivanov) gid=1001(ivanov) groups=1001(ivanov),27(sudo),1500(acme-admins)
+root@db01:~# last -n 2
+ivanov   pts/0        10.20.17.88      Thu Oct 22 09:14   still logged in
+reboot   system boot  6.8.0-45-generic Thu Oct 22 08:00   still running
+root@db01:~# crontab -l -u svc-backup
+@reboot /opt/acme/bin/backup.sh --target nfs01:/export/backup --password-file /etc/backup.pw
+0 3 * * * /usr/bin/rsync -a /var/lib/postgresql/ svc-backup@bkp02.acme.lan:/srv/db01/
+root@db01:~# openssl x509 -in /etc/ssl/acme/db01.crt -noout -subject -ext subjectAltName
+subject=C = ES, O = Acme Payments S.L., CN = db01.acme.lan
+X509v3 Subject Alternative Name:
+    DNS:db01.acme.lan, DNS:db01, IP Address:10.20.30.15
+root@db01:~# tail -2 /var/log/nginx/access.log
+10.20.17.88 - ivanov [22/Oct/2026:09:50:01 +0300] "GET /admin/?token=a8f3k2LmQ9x HTTP/1.1" 200 512 "-" "curl/8.5.0"
+203.0.113.11 - - [22/Oct/2026:09:51:12 +0300] "POST /login HTTP/1.1" 401 0 "-" "python-requests/2.31"
+root@db01:~# iptables-save | grep 5432
+-A INPUT -s 10.20.30.21/32 -p tcp -m tcp --dport 5432 -j ACCEPT
+root@db01:~# systemctl status wazuh-agent | head -3
+● wazuh-agent.service - Wazuh agent
+     Loaded: loaded (/usr/lib/systemd/system/wazuh-agent.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-10-22 08:00:12 EEST; 1h 51min ago
+root@db01:~# sudo -l -U petrova
+User petrova may run the following commands on db01:
+    (ALL : ALL) ALL
+root@db01:~# hostnamectl
+ Static hostname: db01
+       Icon name: computer-vm
+root@db01:~# grep -i pass /etc/zabbix/zabbix_agentd.conf /root/.my.cnf
+/root/.my.cnf:password="My$qlR00t"
+/root/.my.cnf:user=root

@@ -1,0 +1,15 @@
+# /etc/ssh/sshd_config on db01.acme.lan
+Port 22
+ListenAddress 10.20.30.15
+ListenAddress [::]:22
+PermitRootLogin no
+PasswordAuthentication no
+PermitEmptyPasswords no
+PubkeyAuthentication yes
+AllowUsers ivanov petrova svc-backup@10.20.16.0/20
+AllowGroups acme-admins
+Banner /etc/ssh/banner-acme.txt
+Match User deploy
+    AllowTcpForwarding no
+Match Address 10.20.16.0/20,192.168.50.0/24
+    PasswordAuthentication yes

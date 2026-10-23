@@ -1,0 +1,6 @@
+[domains]
+suffixes = ["acme.lan", "acmepay.internal"]
+[strings]
+values = ["Acme"]
+[ips]
+keep = ["8.8.8.8", "1.1.1.1"]

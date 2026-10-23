@@ -1,0 +1,5 @@
+#!/bin/sh
+# Run llmscrub from a source checkout without installing it.
+# Optional: ln -s "$PWD/bin/llmscrub" ~/.local/bin/llmscrub
+HERE="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
+PYTHONPATH="$HERE${PYTHONPATH:+:$PYTHONPATH}" exec python3 -s -m llmscrub "$@"

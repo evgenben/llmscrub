@@ -1,0 +1,35 @@
+# llmscrub — local config. Never paste its contents into an AI chat.
+# Permissions: chmod 600 this file.
+
+[domains]
+# Internal DNS suffixes. Everything ending with them is masked:
+# FQDNs, Kerberos realms (ACME.LAN), LDAP DNs (dc=acme,dc=lan), e-mail addresses.
+suffixes = ["acme.lan", "acmepay.internal"]
+
+[hosts]
+# Short host names to always mask. Most are found automatically
+# (FQDNs, syslog prefix, /etc/hosts, shell prompts, fstab, rsyslog, URIs).
+names = []
+# Labels that should NOT be masked (in addition to the built-in list:
+# www, mail, ns1, ldap, prod, ...).
+keep = []
+
+[users]
+# User names to always mask (others are found in auth.log, sudo, audit,
+# passwd/shadow/group, sshd_config, sssd.conf, /home/<user>, ...).
+names = []
+# Do not mask (in addition to system accounts: root, www-data, sshd, ...).
+keep = []
+
+[strings]
+# Company, project, NetBIOS domain names etc. — masked as case-insensitive
+# substrings, including inside paths such as /etc/ssl/acme-prod/.
+values = ["Acme"]
+
+[ips]
+# Do not mask: public resolvers and the like. IPv4 addresses or CIDRs.
+keep = ["8.8.8.8", "1.1.1.1"]
+
+[secrets]
+# Extra key names whose values are treated as secrets.
+extra_keys = []

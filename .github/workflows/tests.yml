@@ -1,0 +1,41 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Unit tests
+        run: python -m unittest -v tests.test_engine
+
+      - name: Install and smoke-test the CLI
+        run: |
+          python -m pip install .
+          llmscrub --version
+          out=$(printf 'ListenAddress 10.20.30.15\n' | llmscrub mask --config /nonexistent --session "$RUNNER_TEMP/s.json")
+          echo "$out"
+          ! grep -q '10\.20\.30\.15' <<<"$out"
+
+      - name: GUI module imports
+        run: |
+          if python -c "import tkinter" 2>/dev/null; then
+            python -c "import llmscrub.gui"
+          else
+            echo "tkinter is not available on this runner, skipped"
+          fi

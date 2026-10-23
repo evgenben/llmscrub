@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llmscrub"
+dynamic = ["version"]
+description = "Local, reversible pseudonymisation of Linux configs and logs before you paste them into an AI chat"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "evgen_ben" }]
+keywords = ["anonymization", "pseudonymization", "llm", "privacy", "pci-dss", "logs", "sysadmin"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Environment :: X11 Applications",
+    "Intended Audience :: System Administrators",
+    "Natural Language :: English",
+    "Natural Language :: Russian",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Security",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/evgenben/llmscrub"
+Issues = "https://github.com/evgenben/llmscrub/issues"
+Changelog = "https://github.com/evgenben/llmscrub/blob/main/CHANGELOG.md"
+
+[project.scripts]
+llmscrub = "llmscrub.__main__:main"
+
+[tool.setuptools]
+packages = ["llmscrub"]
+
+[tool.setuptools.dynamic]
+version = { attr = "llmscrub.__version__" }
